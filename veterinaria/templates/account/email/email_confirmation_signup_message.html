@@ -1,0 +1,13 @@
+
+{% autoescape off %}
+Hola, {{ user.username }}. Estás recibiendo este e-mail porque te registraste en DemoDjango
+Por favor, ingresa al siguiente enlace para verificar tu e-mail:
+
+https://demo_django.com/verificar-email/{{ key }}
+
+Tu nombre de usuario, en caso lo hayas olvidado: {{ user.get_username }}
+
+Gracias, desde Demo.Django.
+https://demo_django.com/
+{% endautoescape %}
+
