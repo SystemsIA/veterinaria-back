@@ -8,7 +8,7 @@ from .base import env
 # GENERAL - https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
 SECRET_KEY = env(
     "DJANGO_SECRET_KEY",
-    default="ua2B0BwgHW46tECO9McG1KaVX2vm9bXIf7ek0bXrFJJ843IKmGSOhNEUUNxVx9ch",
+    default="5iE14HxA2VVHBzUCDEw65zk4hhmdcV9qlKV64gZ0w5MbQjCtjklFZpx1nFRMi3X1",
 )
 # https://docs.djangoproject.com/en/dev/ref/settings/#test-runner
 TEST_RUNNER = "django.test.runner.DiscoverRunner"
@@ -24,8 +24,8 @@ CACHES = {
 # PASSWORDS - https://docs.djangoproject.com/en/dev/ref/settings/#password-hashers
 PASSWORD_HASHERS = ["django.contrib.auth.hashers.MD5PasswordHasher"]
 
-# TEMPLATES
-TEMPLATES[-1]["OPTIONS"]["loaders"] = [  # type: ignore[index] # noqa F405
+# TEMPLATES - type: ignore[index] # noqa F405
+TEMPLATES[-1]["OPTIONS"]["loaders"] = [
     (
         "django.template.loaders.cached.Loader",
         [

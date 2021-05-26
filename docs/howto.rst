@@ -4,7 +4,7 @@ How To - Project Documentation
 Get Started
 ----------------------------------------------------------------------
 
-Documentation can be written as rst files in the `veterinaria/docs/_source`.
+Documentation can be written as rst files in the `veterinaria_back/docs/_source`.
 
 
 To build and serve docs, use the commands:

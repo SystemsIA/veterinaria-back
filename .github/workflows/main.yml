@@ -1,0 +1,23 @@
+name: deploy to aws
+on: 
+  create:
+    branches:
+        - master
+jobs:
+  deploy:
+    name: deploy
+    runs-on: ubuntu-latest
+    steps:
+    - name: connect ssh
+      uses: fifsky/ssh-action@master
+      with:
+        command: |
+          cd /home/veterinaria-back/
+          git pull
+          docker-compose -f production.yml up --build -d
+          docker-compose -f production.yml run --rm django python manage.py migrate
+        host: api.rrqq.me
+        user: ubuntu
+        
+        key: ${{ secrets.SSH_PRIVATE_KEY}}
+        

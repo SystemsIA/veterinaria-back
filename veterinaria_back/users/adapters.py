@@ -9,7 +9,7 @@ from allauth.socialaccount.adapter import DefaultSocialAccountAdapter
 
 # Utilities
 from typing import Any
-from veterinaria.utils.utilities import send_email
+from veterinaria_back.utils.utilities import send_email
 
 
 class AccountAdapter(DefaultAccountAdapter):

@@ -64,12 +64,12 @@ AWS_S3_CUSTOM_DOMAIN = env("DJANGO_AWS_S3_CUSTOM_DOMAIN", default=None)
 aws_s3_domain = AWS_S3_CUSTOM_DOMAIN or f"{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com"
 
 # STATIC
-STATICFILES_STORAGE = "veterinaria.utils.storages.StaticRootS3Boto3Storage"
+STATICFILES_STORAGE = "veterinaria_back.utils.storages.StaticRootS3Boto3Storage"
 COLLECTFAST_STRATEGY = "collectfast.strategies.boto3.Boto3Strategy"
 STATIC_URL = f"https://{aws_s3_domain}/static/"
 
 # MEDIA
-DEFAULT_FILE_STORAGE = "veterinaria.utils.storages.MediaRootS3Boto3Storage"
+DEFAULT_FILE_STORAGE = "veterinaria_back.utils.storages.MediaRootS3Boto3Storage"
 MEDIA_URL = f"https://{aws_s3_domain}/media/"
 
 # TEMPLATES
@@ -86,16 +86,16 @@ TEMPLATES[-1]["OPTIONS"]["loaders"] = [  # type: ignore[index] # noqa F405
 
 # EMAIL - https://docs.djangoproject.com/en/dev/ref/settings/#default-from-email
 DEFAULT_FROM_EMAIL = env(
-    "DJANGO_DEFAULT_FROM_EMAIL", default="veterinaria <noreply@api.rrqq.me>"
+    "DJANGO_DEFAULT_FROM_EMAIL", default="veterinaria back<noreply@api.rrqq.me>"
 )
 SERVER_EMAIL = env(
     "DJANGO_SERVER_EMAIL", default=DEFAULT_FROM_EMAIL
 )  # https://docs.djangoproject.com/en/dev/ref/settings/#server-email
 # https://docs.djangoproject.com/en/dev/ref/settings/#email-subject-prefix
-EMAIL_SUBJECT_PREFIX = env("DJANGO_EMAIL_SUBJECT_PREFIX", default="[veterinaria]")
+EMAIL_SUBJECT_PREFIX = env("DJANGO_EMAIL_SUBJECT_PREFIX", default="[veterinaria back]")
 # Add
 # EMAIL_CONFIG = env.email_url("EMAIL_URL")
-# vars().update(EMAIL_CONFI
+# vars().update(EMAIL_CONFIG)
 
 # ADMIN - Django Admin URL regex.
 ADMIN_URL = env("DJANGO_ADMIN_URL")

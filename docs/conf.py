@@ -26,9 +26,9 @@ django.setup()
 
 # -- Project information -----------------------------------------------------
 
-project = "veterinaria"
-copyright = """2021, chupetines"""
-author = "chupetines"
+project = "veterinaria back"
+copyright = """2021, RrQq"""
+author = "RrQq"
 
 
 # -- General configuration ---------------------------------------------------

@@ -6,8 +6,8 @@ from pathlib import Path
 
 ROOT_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
 
-###################### veterinaria/ ######################
-APPS_DIR = ROOT_DIR / "veterinaria"
+# veterinaria_back
+APPS_DIR = ROOT_DIR / "veterinaria_back"
 env = environ.Env()
 
 READ_DOT_ENV_FILE = env.bool("DJANGO_READ_DOT_ENV_FILE", default=False)
@@ -31,7 +31,7 @@ DATABASES["default"]["ATOMIC_REQUESTS"] = True
 
 # URLS - https://docs.djangoproject.com/en/dev/ref/settings/#root-urlconf
 ROOT_URLCONF = "config.urls"
-WSGI_APPLICATION = "config.wsgi.application" # https://docs.djangoproject.com/en/dev/ref/settings/#wsgi-application
+WSGI_APPLICATION = "config.wsgi.application"  # https://docs.djangoproject.com/en/dev/ref/settings/#wsgi-application
 
 # APPS
 DJANGO_APPS = [
@@ -40,7 +40,7 @@ DJANGO_APPS = [
     "django.contrib.sessions",
     "django.contrib.sites",
     "django.contrib.messages",
-    "django.contrib.staticfiles", 
+    "django.contrib.staticfiles",
     "django.contrib.admin",
     "django.forms",
 ]
@@ -57,14 +57,14 @@ THIRD_PARTY_APPS = [
 ]
 
 LOCAL_APPS = [
-    "veterinaria.users.apps.UsersConfig",
+    "veterinaria_back.users.apps.UsersConfig",
     # Your stuff: custom apps go here
 ]
-
-INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
+# https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
+INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
 # MIGRATIONS - https://docs.djangoproject.com/en/dev/ref/settings/#migration-modules
-MIGRATION_MODULES = {"sites": "veterinaria.contrib.sites.migrations"}
+MIGRATION_MODULES = {"sites": "veterinaria_back.contrib.sites.migrations"}
 
 # AUTHENTICATION - https://docs.djangoproject.com/en/dev/ref/settings/#authentication-backends
 AUTHENTICATION_BACKENDS = [
@@ -72,8 +72,8 @@ AUTHENTICATION_BACKENDS = [
     "allauth.account.auth_backends.AuthenticationBackend",
 ]
 
-AUTH_USER_MODEL = "users.User"# https://docs.djangoproject.com/en/dev/ref/settings/#auth-user-model
-# LOGIN_REDIRECT_URL = "users:redirect" # https://docs.djangoproject.com/en/dev/ref/settings/#login-redirect-url
+AUTH_USER_MODEL = "users.User"  # https://docs.djangoproject.com/en/dev/ref/settings/#auth-user-model
+# LOGIN_REDIRECT_URL = "users:redirect"  # https://docs.djangoproject.com/en/dev/ref/settings/#login-redirect-url
 # LOGIN_URL = "account_login" # https://docs.djangoproject.com/en/dev/ref/settings/#login-url
 
 # PASSWORDS - https://docs.djangoproject.com/en/dev/ref/settings/#password-hashers
@@ -108,16 +108,17 @@ MIDDLEWARE = [
 
 # STATIC - https://docs.djangoproject.com/en/dev/ref/settings/#static-root
 STATIC_ROOT = str(ROOT_DIR / "staticfiles")
-STATIC_URL = "/static/" # https://docs.djangoproject.com/en/dev/ref/settings/#static-url
-STATICFILES_DIRS = [str(APPS_DIR / "static")] # https://docs.djangoproject.com/en/dev/ref/contrib/staticfiles/#std:setting-STATICFILES_DIRS
+STATIC_URL = "/static/"  # https://docs.djangoproject.com/en/dev/ref/settings/#static-url
+# https://docs.djangoproject.com/en/dev/ref/contrib/staticfiles/#std:setting-STATICFILES_DIRS
+STATICFILES_DIRS = [str(APPS_DIR / "static")]
 STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.FileSystemFinder",
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
-] # https://docs.djangoproject.com/en/dev/ref/contrib/staticfiles/#staticfiles-finders
+]  # https://docs.djangoproject.com/en/dev/ref/contrib/staticfiles/#staticfiles-finders
 
 # MEDIA - https://docs.djangoproject.com/en/dev/ref/settings/#media-root
 MEDIA_ROOT = str(APPS_DIR / "media")
-MEDIA_URL = "/media/" # https://docs.djangoproject.com/en/dev/ref/settings/#media-url
+MEDIA_URL = "/media/"  # https://docs.djangoproject.com/en/dev/ref/settings/#media-url
 
 # TEMPLATES - https://docs.djangoproject.com/en/dev/ref/settings/#templates
 TEMPLATES = [
@@ -143,7 +144,7 @@ TEMPLATES = [
                 "django.template.context_processors.static",
                 "django.template.context_processors.tz",
                 "django.contrib.messages.context_processors.messages",
-                "veterinaria.utils.context_processors.settings_context",
+                "veterinaria_back.utils.context_processors.settings_context",
             ],
         },
     }
@@ -160,13 +161,13 @@ FIXTURE_DIRS = (str(APPS_DIR / "fixtures"),)
 
 # SECURITY - https://docs.djangoproject.com/en/dev/ref/settings/#session-cookie-httponly
 SESSION_COOKIE_HTTPONLY = True
-CSRF_COOKIE_HTTPONLY = True # https://docs.djangoproject.com/en/dev/ref/settings/#csrf-cookie-httponly
-SECURE_BROWSER_XSS_FILTER = True # https://docs.djangoproject.com/en/dev/ref/settings/#secure-browser-xss-filter
-X_FRAME_OPTIONS = "DENY" # https://docs.djangoproject.com/en/dev/ref/settings/#x-frame-options
+CSRF_COOKIE_HTTPONLY = True  # https://docs.djangoproject.com/en/dev/ref/settings/#csrf-cookie-httponly
+SECURE_BROWSER_XSS_FILTER = True  # https://docs.djangoproject.com/en/dev/ref/settings/#secure-browser-xss-filter
+X_FRAME_OPTIONS = "DENY"  # https://docs.djangoproject.com/en/dev/ref/settings/#x-frame-options
 
 # EMAIL - https://docs.djangoproject.com/en/dev/ref/settings/#email-backend
 EMAIL_BACKEND = env("DJANGO_EMAIL_BACKEND", default="django.core.mail.backends.smtp.EmailBackend")
-EMAIL_TIMEOUT = 5 # https://docs.djangoproject.com/en/dev/ref/settings/#email-timeout
+EMAIL_TIMEOUT = 5  # https://docs.djangoproject.com/en/dev/ref/settings/#email-timeout
 DEFAULT_FROM_EMAIL = "lherner.remon.27@unsch.edu.pe"
 
 # ADMIN
@@ -176,12 +177,7 @@ ADMIN_URL = "admin/"
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
-    "formatters": {
-        "verbose": {
-            "format": "%(levelname)s %(asctime)s %(module)s "
-            "%(process)d %(thread)d %(message)s"
-        }
-    },
+    "formatters": {"verbose": {"format": "%(levelname)s %(asctime)s %(module)s " "%(process)d %(thread)d %(message)s"}},
     "handlers": {
         "console": {
             "level": "DEBUG",
@@ -192,7 +188,6 @@ LOGGING = {
     "root": {"level": "INFO", "handlers": ["console"]},
 }
 
-
 # DJANGO-ALLAUTH - https://django-allauth.readthedocs.io/en/latest/configuration.html
 ACCOUNT_ALLOW_REGISTRATION = env.bool("DJANGO_ACCOUNT_ALLOW_REGISTRATION", True)
 ACCOUNT_AUTHENTICATION_METHOD = "email"  # username | email | username_email
@@ -200,11 +195,9 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_USERNAME_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 7
-ACCOUNT_ADAPTER = "veterinaria.users.adapters.AccountAdapter"
-SOCIALACCOUNT_ADAPTER = "veterinaria.users.adapters.SocialAccountAdapter"
+ACCOUNT_ADAPTER = "veterinaria_back.users.adapters.AccountAdapter"
+SOCIALACCOUNT_ADAPTER = "veterinaria_back.users.adapters.SocialAccountAdapter"
 # django-allauth | social account providers- https://django-allauth.readthedocs.io/en/latest/providers.html
-
-
 # DJANGO-REST-FRAMEWORK - https://www.django-rest-framework.org/api-guide/settings/
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (

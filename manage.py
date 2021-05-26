@@ -24,8 +24,8 @@ if __name__ == "__main__":
         raise
 
     # This allows easy placement of apps within the interior
-    # veterinaria directory.
+    # veterinaria_back directory.
     current_path = Path(__file__).parent.resolve()
-    sys.path.append(str(current_path / "veterinaria"))
+    sys.path.append(str(current_path / "veterinaria_back"))
 
     execute_from_command_line(sys.argv)

@@ -9,6 +9,6 @@ from django.contrib.auth import get_user_model
 # from rest_framework.viewsets import GenericViewSet
 
 # Serializers
-# from veterinaria.users.api.serializers import UserModelSerialzier
+# from veterinaria_back.users.api.serializers import UserModelSerialzier
 
 User = get_user_model()

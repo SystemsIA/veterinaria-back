@@ -9,7 +9,7 @@ services:
     build:
       context: .
       dockerfile: ./compose/local/django/Dockerfile
-    image: veterinaria_local_django
+    image: veterinaria_back_local_django
     container_name: django
     depends_on:
       - postgres
@@ -26,7 +26,7 @@ services:
     build:
       context: .
       dockerfile: ./compose/production/postgres/Dockerfile
-    image: veterinaria_production_postgres
+    image: veterinaria_back_production_postgres
     container_name: postgres
     volumes:
       - local_postgres_data:/var/lib/postgresql/data:Z
@@ -35,7 +35,7 @@ services:
       - ./.envs/.local/.postgres
 
   docs:
-    image: veterinaria_local_docs
+    image: veterinaria_back_local_docs
     container_name: docs
     build:
       context: .
@@ -45,7 +45,7 @@ services:
     volumes:
       - ./docs:/docs:z
       - ./config:/app/config:z
-      - ./veterinaria:/app/veterinaria:z
+      - ./veterinaria_back:/app/veterinaria_back:z
     ports:
       - "7000:7000"
     command: /start-docs
