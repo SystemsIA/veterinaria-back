@@ -14,10 +14,10 @@ jobs:
         command: |
           cd /home/veterinaria-back/
           git pull
-          docker-compose -f production.yml up --build -d
-          docker-compose -f production.yml run --rm django python manage.py migrate
+          python3 manage.py collectstatic --noinput
+          python3 manage.py migrate --noinput
+          sudo systemctl restart gunicorn nginx
         host: api.rrqq.me
         user: ubuntu
-        
         key: ${{ secrets.SSH_PRIVATE_KEY}}
         

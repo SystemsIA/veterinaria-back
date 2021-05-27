@@ -3,12 +3,13 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
+
 # Rest
 from rest_framework.authtoken.views import obtain_auth_token
 
 urlpatterns = [
     path(settings.ADMIN_URL, admin.site.urls),
-    path("users/", include("veterinaria_back.users.urls", namespace="users")),
+    # path("users/", include("veterinaria_back.users.urls", namespace="users")),
     # Your stuff: custom urls includes go here
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
@@ -23,7 +24,7 @@ if settings.DEBUG:
     # Include Docs too, and token with DRF
     urlpatterns += [
         # Django Allauth
-        path("accounts/", include("allauth.urls")),
+        # path("accounts/", include("allauth.urls")),
         # DRF auth token
         path("auth-token/", obtain_auth_token),
     ]

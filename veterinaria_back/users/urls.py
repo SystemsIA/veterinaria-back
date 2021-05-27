@@ -1,5 +1,5 @@
-# Django
-# from django.urls import path
+# # Django
+# # from django.urls import path
 
-app_name = "users"
-urlpatterns = []
+# app_name = "users"
+# urlpatterns = []
