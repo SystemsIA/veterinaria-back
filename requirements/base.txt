@@ -4,7 +4,7 @@ python-slugify==5.0.2  # https://github.com/un33k/python-slugify
 Pillow==8.2.0  # https://github.com/python-pillow/Pillow
 rcssmin==1.0.6 --install-option="--without-c-extensions"  # https://github.com/ndparker/rcssmin
 argon2-cffi==20.1.0  # https://github.com/hynek/argon2_cffi
-#redis==3.5.3  # https://github.com/andymccurdy/redis-py
+redis==3.5.3  # https://github.com/andymccurdy/redis-py
 
 # Django
 django==3.1.11  # pyup: < 3.1  # https://www.djangoproject.com/
@@ -12,8 +12,8 @@ django-environ==0.4.5  # https://github.com/joke2k/django-environ
 django-model-utils==4.1.1  # https://github.com/jazzband/django-model-utils
 django-allauth==0.44.0  # https://github.com/pennersr/django-allauth
 django-crispy-forms==1.11.2  # https://github.com/django-crispy-forms/django-crispy-forms
-#django-redis==4.12.1  # https://github.com/jazzband/django-redis
-drf-writable-nested==0.6.2 # https://github.com/beda-software/drf-writable-nested
+django-redis==4.12.1  # https://github.com/jazzband/django-redis
+#drf-writable-nested==0.6.2 # https://github.com/beda-software/drf-writable-nested
 djangorestframework-simplejwt==4.7.0 # https://github.com/jazzband/django-rest-framework-simplejwt
 django-ckeditor==6.0.0 # https://github.com/django-ckeditor/django-ckeditor
 
