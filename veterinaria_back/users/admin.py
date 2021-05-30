@@ -10,14 +10,14 @@ User = get_user_model()
 
 @admin.register(User)
 class UserAdmin(auth_admin.UserAdmin):
-    list_display = ["email", "first_name", "last_name", "username", "is_superuser"]
-    list_display_links = ["email", "first_name"]
+    list_display = ["email", "nombre", "tipo_usuario", "username", "is_superuser"]
+    list_display_links = ["email", "nombre"]
     # list_filter = []
     # search_fields = []
 
     fieldsets = (
         (None, {"fields": ("username", "password")}),
-        (_("Personal info"), {"fields": (("first_name", "last_name"), "email")}),
+        (_("Personal info"), {"fields": ("email", "nombre", "tipo_usuario", "dni", ("direccion", "telefono"))}),
         (
             _("Permissions"),
             {
@@ -34,7 +34,7 @@ class UserAdmin(auth_admin.UserAdmin):
             None,
             {
                 "classes": ("wide",),
-                "fields": ("email", "username", "password1", "password2"),
+                "fields": ("email", "username", "tipo_usuario", "password1", "password2"),
             },
         ),
     )

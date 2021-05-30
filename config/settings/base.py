@@ -3,6 +3,7 @@ Base settings to build other settings files upon.
 """
 import environ
 from pathlib import Path
+from veterinaria_back.utils.ckeditor import *  # noqa
 
 ROOT_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
 
@@ -39,14 +40,14 @@ DJANGO_APPS = [
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
-    "django.contrib.sites",
+    # "django.contrib.sites",
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django.contrib.admin",
     "django.forms",
 ]
 THIRD_PARTY_APPS = [
-    "crispy_forms",
+    # "crispy_forms",
     # "allauth",
     # "allauth.account",
     # "allauth.socialaccount",
@@ -55,11 +56,12 @@ THIRD_PARTY_APPS = [
     "dj_rest_auth",
     # "dj_rest_auth.registration",
     "corsheaders",
+    "ckeditor",
 ]
 
 LOCAL_APPS = [
     "veterinaria_back.users.apps.UsersConfig",
-    # Your stuff: custom apps go here
+    "veterinaria_back.clases.apps.ClasesConfig",
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -155,7 +157,7 @@ TEMPLATES = [
 FORM_RENDERER = "django.forms.renderers.TemplatesSetting"
 
 # http://django-crispy-forms.readthedocs.io/en/latest/install.html#template-packs
-CRISPY_TEMPLATE_PACK = "bootstrap4"
+# CRISPY_TEMPLATE_PACK = "bootstrap4"
 
 # FIXTURES - https://docs.djangoproject.com/en/dev/ref/settings/#fixture-dirs
 FIXTURE_DIRS = (str(APPS_DIR / "fixtures"),)
