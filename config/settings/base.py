@@ -40,7 +40,7 @@ DJANGO_APPS = [
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
-    # "django.contrib.sites",
+    "django.contrib.sites",
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django.contrib.admin",
@@ -48,13 +48,13 @@ DJANGO_APPS = [
 ]
 THIRD_PARTY_APPS = [
     # "crispy_forms",
-    # "allauth",
-    # "allauth.account",
+    "allauth",
+    "allauth.account",
     # "allauth.socialaccount",
     "rest_framework",
     "rest_framework.authtoken",
     "dj_rest_auth",
-    # "dj_rest_auth.registration",
+    "dj_rest_auth.registration",
     "corsheaders",
     "ckeditor",
 ]
@@ -220,8 +220,8 @@ REST_FRAMEWORK = {
 }
 
 # DJ REST AUTH- https://dj-rest-auth.readthedocs.io/en/latest/configuration.html
-OLD_PASSWORD_FIELD_ENABLED = True  # If the old password will be askedua
-# REST_AUTH_SERIALIZERS = {"USER_DETAILS_SERIALIZER": ".serializers.MyUserSerializer",}
+# OLD_PASSWORD_FIELD_ENABLED = True  # If the old password will be askedua
+REST_AUTH_SERIALIZERS = {"LOGIN_SERIALIZER": "veterinaria_back.api.serializers.LoginSerializer"}
 # REST_AUTH_REGISTER_SERIALIZERS = {"REGISTER_SERIALIZER": ".serializers.MyRegisterUserModelSerialzier",}
 
 # SIMPLEJWT - https://github.com/jazzband/django-rest-framework-simplejwt
