@@ -14,6 +14,7 @@ jobs:
         command: |
           cd /home/ubuntu/veterinaria-back/
           git pull
+          export DJANGO_SETTINGS_MODULE=config.settings.production
           python3 manage.py collectstatic --noinput
           python3 manage.py migrate --noinput
           sudo systemctl restart gunicorn nginx
