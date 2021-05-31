@@ -89,8 +89,8 @@ ADMIN_URL = env("DJANGO_ADMIN_URL")
 # INSTALLED_APPS = ["collectfast"] + INSTALLED_APPS  # noqa F405
 
 # STATIC WhiteNoise
-STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
-MIDDLEWARE.insert(1, "whitenoise.middleware.WhiteNoiseMiddleware")
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+COMPRESS_OFFLINE = True
 
 # LOGGING - https://docs.djangoproject.com/en/dev/ref/settings/#logging
 # See https://docs.djangoproject.com/en/dev/topics/logging for
