@@ -23,6 +23,7 @@ class User(AbstractUser, TimeStampedModel):
     dni = models.CharField(max_length=8, validators=[validators.dni_regex_validator], blank=True)
     direccion = models.CharField(max_length=256, blank=True)
     telefono = models.CharField(max_length=12, validators=[validators.celular_regex_validator], blank=True)
+    activo = models.BooleanField(default=True)
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["username"]

@@ -70,7 +70,7 @@ class HistorialAdmin(admin.ModelAdmin):
     inlines = [EstadoInline]
     list_display = ["mascota"]
     search_fields = ["mascota__nombre", "mascota__duenio__nombre", "medico__nombre"]
-    list_filter = ["cirugia"]
+    list_filter = ["tarea", "internado"]
     readonly_fields = ["created", "modified"]
 
     def formfield_for_manytomany(self, db_field, request, **kwargs):

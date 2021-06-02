@@ -26,7 +26,7 @@ class Producto(TimeStampedModel):
     nombre = models.CharField(max_length=256)
     precio = models.FloatField(default=0.0)
     stock = models.SmallIntegerField(default=0)
-    imagen_principal = models.ImageField("imagen", upload_to="producto/img", blank=True, null=True)
+    imagen_principal = models.ImageField("imagen", upload_to="producto/img", null=True)
     marca = models.ForeignKey(MarcaProducto, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -40,7 +40,7 @@ class Producto(TimeStampedModel):
 
 
 class ImagenProducto(TimeStampedModel):
-    img = models.ImageField("imagen", upload_to="producto/img", blank=True, null=True)
+    imagen = models.ImageField("imagen", upload_to="producto/img", blank=True, null=True)
     producto = models.ForeignKey(Producto, on_delete=models.CASCADE, related_name="imagenes")
 
     def __str__(self):
@@ -110,14 +110,26 @@ class DetalleVacuna(TimeStampedModel):
 
 # Historial
 class Historial(TimeStampedModel):
-    mascota = models.ForeignKey(Mascota, on_delete=models.CASCADE, related_name="historiales")
+    CIRUGIA = "CIRUGIA"
+    VACUNA = "VACUNA"
+    CONSULTA = "CONSULTA"
+    CITA = "CITA"
+    TIPO_TAREA_CHOICE = [
+        (CONSULTA, "CONSULTA"),
+        (CITA, "CITA"),
+        (CIRUGIA, "CIRUGIA"),
+        (VACUNA, "VACUNA"),
+    ]
     medico = models.ManyToManyField("users.User")
-    descripcion = RichTextField(help_text="Puedes colocar videos, imágenes y texto", blank=True, null=True)
+    mascota = models.ForeignKey(Mascota, on_delete=models.CASCADE, related_name="historiales")
+    tarea = models.CharField(max_length=16, choices=TIPO_TAREA_CHOICE, blank=True)
     talla = models.CharField(max_length=256, blank=True)
     peso = models.FloatField(blank=True)
-    cirugia = models.BooleanField(default=False)
+    pulso = models.PositiveSmallIntegerField(default=0)
+    internado = models.BooleanField(default=False)
     temperatura = models.FloatField(blank=True)
     pulso = models.PositiveSmallIntegerField(default=0)
+    descripcion = RichTextField(help_text="Puedes colocar videos, imágenes y texto", blank=True, null=True)
     diagnostico = RichTextField(help_text="Puedes colocar videos, imágenes y texto", blank=True, null=True)
     examen = RichTextField(help_text="Puedes colocar videos, imágenes y texto", blank=True, null=True)
     receta_medica = RichTextField(help_text="Puedes colocar videos, imágenes y texto", blank=True, null=True)
