@@ -24,7 +24,7 @@ if settings.DEBUG:
     # Include Docs too, and token with DRF
     urlpatterns += [
         # Django Allauth
-        path("accounts/", include("allauth.urls")),
+        # path("accounts/", include("allauth.urls")),
         # DRF auth token
         path("auth-token/", obtain_auth_token),
     ]

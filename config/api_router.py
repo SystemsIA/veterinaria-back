@@ -18,5 +18,5 @@ app_name = "api"
 urlpatterns = router.urls
 urlpatterns += [
     path("rest-auth/", include("dj_rest_auth.urls")),
-    path("rest-auth/registration/", include("dj_rest_auth.registration.urls")),
+    # path("rest-auth/registration/", include("dj_rest_auth.registration.urls")),
 ]

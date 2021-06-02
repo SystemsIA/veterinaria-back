@@ -17,7 +17,7 @@ class LoginSerializer(serializers.Serializer):
         if not user:
             raise serializers.ValidationError("Datos de acceso incorrectos.")
         # Validación tipo de usuario
-        if not (user.tipo_usuario == User.CLIENTE):
-            raise serializers.ValidationError("El usuario no es un cliente.")
+        if not (user.tipo_usuario == User.CLIENTE or user.tipo_usuario == User.MEDICO):
+            raise serializers.ValidationError("El usuario no es un cliente ni médico")
         data["user"] = user
         return data

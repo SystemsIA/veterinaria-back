@@ -24,7 +24,7 @@ SITE_ID = 1
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
-LOCALE_PATHS = [str(ROOT_DIR / "locale")]
+# LOCALE_PATHS = [str(ROOT_DIR / "locale")]
 
 # DATABASES - https://docs.djangoproject.com/en/dev/ref/settings/#databases
 
@@ -40,21 +40,21 @@ DJANGO_APPS = [
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
-    "django.contrib.sites",
+    # "django.contrib.sites",
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django.contrib.admin",
     "django.forms",
 ]
 THIRD_PARTY_APPS = [
-    # "crispy_forms",
-    "allauth",
-    "allauth.account",
+    "crispy_forms",
+    # "allauth",
+    # "allauth.account",
     # "allauth.socialaccount",
     "rest_framework",
     "rest_framework.authtoken",
     "dj_rest_auth",
-    "dj_rest_auth.registration",
+    # "dj_rest_auth.registration",
     "corsheaders",
     "ckeditor",
 ]
@@ -67,12 +67,12 @@ LOCAL_APPS = [
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
 # MIGRATIONS - https://docs.djangoproject.com/en/dev/ref/settings/#migration-modules
-MIGRATION_MODULES = {"sites": "veterinaria_back.contrib.sites.migrations"}
+# MIGRATION_MODULES = {"sites": "veterinaria_back.contrib.sites.migrations"}
 
 # AUTHENTICATION - https://docs.djangoproject.com/en/dev/ref/settings/#authentication-backends
 AUTHENTICATION_BACKENDS = [
     "django.contrib.auth.backends.ModelBackend",
-    "allauth.account.auth_backends.AuthenticationBackend",
+    # "allauth.account.auth_backends.AuthenticationBackend",
 ]
 
 AUTH_USER_MODEL = "users.User"  # https://docs.djangoproject.com/en/dev/ref/settings/#auth-user-model
@@ -158,7 +158,7 @@ TEMPLATES = [
 FORM_RENDERER = "django.forms.renderers.TemplatesSetting"
 
 # http://django-crispy-forms.readthedocs.io/en/latest/install.html#template-packs
-# CRISPY_TEMPLATE_PACK = "bootstrap4"
+CRISPY_TEMPLATE_PACK = "bootstrap4"
 
 # FIXTURES - https://docs.djangoproject.com/en/dev/ref/settings/#fixture-dirs
 FIXTURE_DIRS = (str(APPS_DIR / "fixtures"),)
@@ -193,14 +193,14 @@ LOGGING = {
 }
 
 # DJANGO-ALLAUTH - https://django-allauth.readthedocs.io/en/latest/configuration.html
-ACCOUNT_ALLOW_REGISTRATION = env.bool("DJANGO_ACCOUNT_ALLOW_REGISTRATION", True)
-ACCOUNT_AUTHENTICATION_METHOD = "email"  # username | email | username_email
-ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_USERNAME_REQUIRED = False
-ACCOUNT_EMAIL_VERIFICATION = "none"
+# ACCOUNT_ALLOW_REGISTRATION = env.bool("DJANGO_ACCOUNT_ALLOW_REGISTRATION", True)
+# ACCOUNT_AUTHENTICATION_METHOD = "email"  # username | email | username_email
+# ACCOUNT_EMAIL_REQUIRED = True
+# ACCOUNT_USERNAME_REQUIRED = False
+# ACCOUNT_EMAIL_VERIFICATION = "none"
 # ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 7
-ACCOUNT_ADAPTER = "veterinaria_back.users.adapters.AccountAdapter"
-SOCIALACCOUNT_ADAPTER = "veterinaria_back.users.adapters.SocialAccountAdapter"
+# ACCOUNT_ADAPTER = "veterinaria_back.users.adapters.AccountAdapter"
+# SOCIALACCOUNT_ADAPTER = "veterinaria_back.users.adapters.SocialAccountAdapter"
 # django-allauth | social account providers- https://django-allauth.readthedocs.io/en/latest/providers.html
 # DJANGO-REST-FRAMEWORK - https://www.django-rest-framework.org/api-guide/settings/
 REST_FRAMEWORK = {
@@ -226,7 +226,7 @@ REST_AUTH_SERIALIZERS = {"LOGIN_SERIALIZER": "veterinaria_back.api.serializers.L
 # REST_AUTH_REGISTER_SERIALIZERS = {"REGISTER_SERIALIZER": ".serializers.MyRegisterUserModelSerialzier",}
 
 # SIMPLEJWT - https://github.com/jazzband/django-rest-framework-simplejwt
-REST_USE_JWT = False  # If will use jwt
+# REST_USE_JWT = False  # If will use jwt
 # SIMPLE_JWT = {"AUTH_HEADER_TYPES": ("token",)}# nombre del header Authorization
 
 # DJANGO CORS HEADER - https://github.com/adamchainz/django-cors-headers#setup
