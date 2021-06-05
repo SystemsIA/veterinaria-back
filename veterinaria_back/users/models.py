@@ -1,6 +1,6 @@
 # Django
-from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.hashers import make_password
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 # Models Utils
@@ -29,7 +29,7 @@ class User(AbstractUser, TimeStampedModel):
     REQUIRED_FIELDS = ["username"]
 
     def __str__(self):
-        return f"{self.nombre} | {self.email}"
+        return f"{self.nombre} | {self.email} | {self.tipo_usuario}"
 
     def set_password(self, raw_password):
         """Overwrite this method because we need to save the raw password to send the welcome mail with the password """
@@ -42,3 +42,18 @@ class User(AbstractUser, TimeStampedModel):
         verbose_name_plural = "usuarios"
         get_latest_by = "created"
         ordering = ["-created", "-modified"]
+
+
+class Notificacion(TimeStampedModel):
+    cliente = models.ForeignKey(User, on_delete=models.CASCADE)
+    motivo = models.TextField(max_length=1024)
+    visto = models.BooleanField(default=False)
+
+    def __str__(self):
+        return str(self.cliente.nombre)
+
+    class Meta:
+        verbose_name = "notificaion"
+        verbose_name_plural = "Notificaciones"
+        get_latest_by = "created"
+        ordering = ["created", "modified"]

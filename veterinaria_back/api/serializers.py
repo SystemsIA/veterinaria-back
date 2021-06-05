@@ -1,16 +1,19 @@
 # Django
-from django.contrib.auth import get_user_model, authenticate, password_validation
+from django.contrib.auth import authenticate, get_user_model, password_validation
 
 # Rest
 from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
 
 # Model
-from veterinaria_back.clases.models import Producto, MarcaProducto, ImagenProducto, Mascota
+from veterinaria_back.clases.models import (
+    ImagenProducto,
+    MarcaProducto,
+    Mascota,
+    Producto,
+)
 
 User = get_user_model()
-
-# User
 
 
 class LoginSerializer(serializers.Serializer):
@@ -68,9 +71,7 @@ class UserModelSerializer(serializers.ModelSerializer):
         fields = ["email", "nombre", "tipo_usuario", "dni", "direccion", "telefono", "activo"]
 
 
-# Producto
-
-
+#  Producto
 class ProductoModelSerializer(serializers.ModelSerializer):
     class MarcaProductoModelSerializer(serializers.ModelSerializer):
         class Meta:
@@ -91,8 +92,6 @@ class ProductoModelSerializer(serializers.ModelSerializer):
 
 
 # Medico
-
-
 class CrearClienteSerializer(serializers.Serializer):
     nombre = serializers.CharField(min_length=5)
     email = serializers.EmailField(validators=[UniqueValidator(queryset=User.objects.all())])

@@ -4,14 +4,13 @@ from django.contrib import admin
 # Models
 from veterinaria_back.clases.models import (
     Cita,
+    Especie,
     Estado,
     Historial,
-    MarcaProducto,
-    Producto,
     ImagenProducto,
+    MarcaProducto,
     Mascota,
-    Vacuna,
-    DetalleVacuna,
+    Producto,
 )
 from veterinaria_back.users.models import User
 
@@ -38,24 +37,17 @@ class ProductoAdmin(admin.ModelAdmin):
 
 
 # Mascota
-class DetalleVacunaInline(admin.TabularInline):
-    model = DetalleVacuna
-    extra = 1
-    readonly_fields = ["created"]
-
-
-@admin.register(Vacuna)
-class VacunaAdmin(admin.ModelAdmin):
-    list_display = ["nombre", "enfermedad"]
+@admin.register(Especie)
+class EspecieAdmin(admin.ModelAdmin):
+    list_display = ["tipo"]
     readonly_fields = ["created", "modified"]
 
 
 @admin.register(Mascota)
 class MascotaAdmin(admin.ModelAdmin):
-    inlines = [DetalleVacunaInline]
-    list_display = ["duenio", "nombre", "sexo"]
+    list_display = ["duenio", "nombre", "especie", "sexo"]
     search_fields = ["duenio__nombre", "nombre"]
-    list_filter = ["sexo"]
+    list_filter = ["sexo", "especie"]
     readonly_fields = ["created", "modified"]
 
 
@@ -68,7 +60,7 @@ class EstadoInline(admin.TabularInline):
 @admin.register(Historial)
 class HistorialAdmin(admin.ModelAdmin):
     inlines = [EstadoInline]
-    list_display = ["mascota"]
+    list_display = ["mascota", "tarea"]
     search_fields = ["mascota__nombre", "mascota__duenio__nombre", "medico__nombre"]
     list_filter = ["tarea", "internado"]
     readonly_fields = ["created", "modified"]

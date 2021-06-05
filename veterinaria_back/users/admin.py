@@ -4,6 +4,8 @@ from django.contrib.auth import admin as auth_admin
 from django.contrib.auth import get_user_model
 from django.utils.translation import gettext_lazy as _
 
+# Models
+from veterinaria_back.users.models import Notificacion
 
 User = get_user_model()
 
@@ -43,3 +45,10 @@ class UserAdmin(auth_admin.UserAdmin):
     )
 
     readonly_fields = ("last_login", "date_joined", "created", "modified")
+
+
+@admin.register(Notificacion)
+class NotificaionAdmin(admin.ModelAdmin):
+    list_display = ["cliente", "motivo", "visto"]
+    list_filter = ["visto"]
+    readonly_fields = ["created", "modified"]

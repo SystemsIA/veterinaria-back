@@ -2,32 +2,26 @@
 from django.contrib.auth import get_user_model
 
 # Rest
-from rest_framework import serializers, status
-
+from rest_framework import status
 from rest_framework.decorators import action
-
-# from rest_framework.mixins import ListModelMixin, RetrieveModelMixin, UpdateModelMixin
-from rest_framework.response import Response
-from rest_framework.viewsets import ReadOnlyModelViewSet
-from rest_framework.permissions import AllowAny
-from rest_framework.views import APIView
 from rest_framework.generics import RetrieveAPIView
+from rest_framework.permissions import AllowAny
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from rest_framework.viewsets import ReadOnlyModelViewSet
 
 # Serializers
 from veterinaria_back.api.serializers import (
-    UserModelSerializer,
+    CrearClienteSerializer,
     ProductoModelSerializer,
     UserChaguePasswordSerializer,
-    CrearClienteSerializer,
+    UserModelSerializer,
 )
 
 # Model
 from veterinaria_back.clases.models import Producto
 
-
 User = get_user_model()
-
-# User
 
 
 class DetailUser(RetrieveAPIView):
@@ -49,8 +43,6 @@ class UserChangePassword(APIView):
 
 
 # Producto
-
-
 class ProductoModelViewSet(ReadOnlyModelViewSet):
     serializer_class = ProductoModelSerializer
     permission_classes = [AllowAny]
