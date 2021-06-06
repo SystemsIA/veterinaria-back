@@ -6,11 +6,16 @@ from rest_framework import serializers
 
 # Model
 from veterinaria_back.clases.models import (
+    Cita,
+    Especie,
+    Estado,
+    Historial,
     ImagenProducto,
     MarcaProducto,
     Mascota,
     Producto,
 )
+from veterinaria_back.users.models import Notificacion
 
 User = get_user_model()
 
@@ -65,7 +70,7 @@ class UserChaguePasswordSerializer(serializers.Serializer):
 
 
 class UserModelSerializer(serializers.ModelSerializer):
-    id = serializers.CharField(read_only=True)
+    id = serializers.IntegerField(read_only=True)
 
     class Meta:
         model = User
@@ -73,20 +78,46 @@ class UserModelSerializer(serializers.ModelSerializer):
 
 
 # Mascotas
+class EspecieModelSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Especie
+        fields = ["id", "tipo", "imagen"]
+
+
 class MascotasModelSerializer(serializers.ModelSerializer):
     user_id = serializers.PrimaryKeyRelatedField(
         write_only=True,
         queryset=User.objects.filter(tipo_usuario=User.CLIENTE),
         error_messages={"does_not_exist": "Este usuario no es cliente."},
     )
+    especie_id = serializers.PrimaryKeyRelatedField(write_only=True, queryset=Especie.objects.all())
+    especie = EspecieModelSerializer(read_only=True)
+    id = serializers.IntegerField(read_only=True)
 
     class Meta:
         model = Mascota
-        fields = ["nombre", "especie", "edad", "raza", "sexo", "color", "alergias", "user_id"]
+        fields = [
+            "id",
+            "nombre",
+            "especie",
+            "edad",
+            "raza",
+            "color",
+            "alergias",
+            "sexo",
+            "esterilizado",
+            "entero",
+            "gestacion",
+            "lactancia",
+            "dni",
+            "user_id",
+            "especie_id",
+        ]
 
     def create(self, data):
         duenio = data.pop("user_id")
-        return Mascota.objects.create(**data, duenio=duenio)
+        especie = data.pop("especie_id")
+        return Mascota.objects.create(**data, especie=especie, duenio=duenio)
 
 
 # Clientes
@@ -102,6 +133,21 @@ class ClienteModelSerializer(serializers.ModelSerializer):
     def create(self, data):
         username = str(data.get("nombre").replace(" ", "-"))
         return User.objects.create_user(**data, username=username, tipo_usuario=User.CLIENTE)
+
+
+class NotificacionModelSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Notificacion
+        fields = ["motivo", "visto", "created"]
+
+
+class CitaModelSerializer(serializers.ModelSerializer):
+    cliente = serializers.HiddenField(default=serializers.CurrentUserDefault())
+
+    class Meta:
+        model = Cita
+        fields = ["fecha_cita", "motivo", "cancelada", "atendida", "cliente"]
+        read_only_fields = ["atendida"]
 
 
 #  Producto
@@ -122,3 +168,44 @@ class ProductoModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = Producto
         fields = ["nombre", "precio", "stock", "imagen_principal", "marca", "imagenes"]
+
+
+# Historial
+class HistorialModelSerializer(serializers.ModelSerializer):
+    medico = serializers.HiddenField(default=serializers.CurrentUserDefault())
+    mascota_id = serializers.PrimaryKeyRelatedField(write_only=True, queryset=Mascota.objects.all())
+    id = serializers.IntegerField(read_only=True)
+
+    class Meta:
+        model = Historial
+        fields = [
+            "id",
+            "descripcion",
+            "talla",
+            "peso",
+            "tarea",
+            "internado",
+            "temperatura",
+            "pulso",
+            "diagnostico",
+            "examen",
+            "receta_medica",
+            "medico",
+            "mascota_id",
+        ]
+
+    def create(self, data):
+        mascota = data.pop("mascota_id")
+        return Historial.objects.create(**data, mascota=mascota)
+
+
+class EstadoModelSerializer(serializers.ModelSerializer):
+    historia_id = serializers.PrimaryKeyRelatedField(write_only=True, queryset=Historial.objects.all())
+
+    class Meta:
+        model = Estado
+        fields = ["nombre", "descripcion", "created", "historia_id"]
+
+    def create(self, data):
+        historial = data.pop("historia_id")
+        return Estado.objects.create(**data, historial=historial)

@@ -44,7 +44,7 @@ class User(AbstractUser, TimeStampedModel):
 
 
 class Notificacion(TimeStampedModel):
-    cliente = models.ForeignKey(User, on_delete=models.CASCADE)
+    cliente = models.ForeignKey(User, on_delete=models.CASCADE, related_name="notificaciones")
     motivo = models.TextField(max_length=1024)
     visto = models.BooleanField(default=False)
 

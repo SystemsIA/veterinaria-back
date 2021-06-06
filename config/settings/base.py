@@ -3,7 +3,6 @@ Base settings to build other settings files upon.
 """
 import environ
 from pathlib import Path
-from veterinaria_back.utils.ckeditor import *  # noqa
 
 ROOT_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
 
@@ -56,7 +55,6 @@ THIRD_PARTY_APPS = [
     "dj_rest_auth",
     # "dj_rest_auth.registration",
     "corsheaders",
-    "ckeditor",
 ]
 
 LOCAL_APPS = [

@@ -12,6 +12,6 @@ User = get_user_model()
 
 @receiver(post_save, sender=Estado)
 def post_save_estado(sender, instance: Estado, **kwargs):
-    mascota = Estado.historial.mascota
-    data = {"cliente": mascota.duenio, "motivo": Estado.descripcion}
+    mascota = instance.historial.mascota
+    data = {"cliente": mascota.duenio, "motivo": instance.descripcion}
     Notificacion.objects.create(**data)

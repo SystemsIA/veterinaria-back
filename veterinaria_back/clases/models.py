@@ -1,5 +1,4 @@
 # Django
-from ckeditor.fields import RichTextField
 from django.db import models
 
 # Models Utils
@@ -120,22 +119,21 @@ class Historial(TimeStampedModel):
         (VACUNA, "VACUNA"),
         (EXAMEN, "EXAMEN"),
     ]
-    medico = models.ManyToManyField("users.User")
+    medico = models.ForeignKey("users.User", on_delete=models.SET_NULL, null=True)
     mascota = models.ForeignKey(Mascota, on_delete=models.CASCADE, related_name="historiales")
-    descripcion = RichTextField(help_text="Puedes colocar videos, imágenes y texto", blank=True, null=True)
+    descripcion = models.TextField(max_length=2048, blank=True, null=True)
     talla = models.CharField(max_length=256, blank=True)
-    peso = models.FloatField(blank=True)
-    tarea = models.CharField(max_length=16, choices=TIPO_TAREA_CHOICE, blank=True)
+    peso = models.FloatField(default=0.0, blank=True, null=True)
+    tarea = models.CharField(max_length=16, choices=TIPO_TAREA_CHOICE)
     internado = models.BooleanField(default=False)
-    temperatura = models.FloatField(blank=True)
+    temperatura = models.FloatField(default=0.0, blank=True, null=True)
     pulso = models.PositiveSmallIntegerField(default=0)
-    pulso = models.PositiveSmallIntegerField(default=0)
-    diagnostico = RichTextField(help_text="Puedes colocar videos, imágenes y texto", blank=True, null=True)
-    examen = RichTextField(help_text="Puedes colocar videos, imágenes y texto", blank=True, null=True)
-    receta_medica = RichTextField(help_text="Puedes colocar videos, imágenes y texto", blank=True, null=True)
+    diagnostico = models.TextField(max_length=2048, blank=True, null=True)
+    examen = models.TextField(max_length=2048, blank=True, null=True)
+    receta_medica = models.TextField(max_length=2048, blank=True, null=True)
 
     def __str__(self):
-        return f"Medico: {self.medico.nombre} | mascota: {self.mascota.nombre}"
+        return f"Mascota: {self.mascota.nombre}"
 
     class Meta:
         verbose_name = "historial"
@@ -158,6 +156,7 @@ class Estado(TimeStampedModel):
 # Cita
 class Cita(TimeStampedModel):
     cliente = models.ForeignKey("users.User", on_delete=models.CASCADE)
+    motivo = models.TextField(max_length=2048)
     fecha_cita = models.DateTimeField()
     cancelada = models.BooleanField(default=False)
     atendida = models.BooleanField(default=False)
