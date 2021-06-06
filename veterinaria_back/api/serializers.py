@@ -146,8 +146,8 @@ class CitaModelSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Cita
-        fields = ["fecha_cita", "motivo", "cancelada", "atendida", "cliente"]
-        read_only_fields = ["atendida"]
+        fields = ["id", "fecha_cita", "motivo", "cancelada", "atendida", "cliente"]
+        read_only_fields = ["id", "atendida"]
 
 
 #  Producto
