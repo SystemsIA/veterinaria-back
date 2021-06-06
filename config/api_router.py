@@ -5,7 +5,14 @@ from django.urls import include, path
 from rest_framework.routers import DefaultRouter, SimpleRouter
 
 # Views
-from veterinaria_back.api.views import ProductoModelViewSet, UserChangePassword, DetailUser, MedicoModelViewSet
+from veterinaria_back.api.views import (
+    MascotaModelViewSet,
+    ProductoModelViewSet,
+    UserChangePassword,
+    DetailUser,
+    ClienteModelViewSet,
+    MedicoModelViewSet,
+)
 
 if settings.DEBUG:
     router = DefaultRouter()
@@ -13,6 +20,8 @@ else:
     router = SimpleRouter()
 
 router.register("productos", ProductoModelViewSet, basename="productos")
+router.register("clientes", ClienteModelViewSet, basename="clientes")
+router.register("mascotas", MascotaModelViewSet, basename="mascotas")
 router.register("medicos", MedicoModelViewSet, basename="medicos")
 
 app_name = "api"

@@ -9,17 +9,19 @@ from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.viewsets import ReadOnlyModelViewSet
+from rest_framework.mixins import CreateModelMixin
 
 # Serializers
 from veterinaria_back.api.serializers import (
-    CrearClienteSerializer,
     ProductoModelSerializer,
     UserChaguePasswordSerializer,
     UserModelSerializer,
+    ClienteModelSerializer,
+    MascotasModelSerializer,
 )
 
 # Model
-from veterinaria_back.clases.models import Producto
+from veterinaria_back.clases.models import Mascota, Producto
 
 User = get_user_model()
 
@@ -49,17 +51,28 @@ class ProductoModelViewSet(ReadOnlyModelViewSet):
     queryset = Producto.objects.all()
 
 
+# Mascota
+class MascotaModelViewSet(ReadOnlyModelViewSet):
+    serializer_class = MascotasModelSerializer
+    queryset = Mascota.objects.all()
+
+
+# Cliente
+class ClienteModelViewSet(CreateModelMixin, ReadOnlyModelViewSet):
+    serializer_class = ClienteModelSerializer
+    queryset = User.objects.filter(tipo_usuario=User.CLIENTE)
+
+    @action(detail=True, methods=["POST"])
+    def mascota(self, request, pk, *args, **kwargs):
+        data = request.data
+        data["user_id"] = pk
+        serializer = MascotasModelSerializer(data=data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+
 # Medico
 class MedicoModelViewSet(ReadOnlyModelViewSet):
     serializer_class = UserModelSerializer
     queryset = User.objects.filter(tipo_usuario=User.MEDICO)
-
-    @action(detail=False, methods=["post"])
-    def crear_cliente(self, request):
-        serializers = CrearClienteSerializer(data=request.data)
-        serializers.is_valid(raise_exception=True)
-        user = serializers.save()
-        return Response(UserModelSerializer(user).data, status=status.HTTP_201_CREATED)
-
-
-# class Medico

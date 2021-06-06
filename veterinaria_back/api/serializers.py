@@ -3,7 +3,6 @@ from django.contrib.auth import authenticate, get_user_model, password_validatio
 
 # Rest
 from rest_framework import serializers
-from rest_framework.validators import UniqueValidator
 
 # Model
 from veterinaria_back.clases.models import (
@@ -66,9 +65,43 @@ class UserChaguePasswordSerializer(serializers.Serializer):
 
 
 class UserModelSerializer(serializers.ModelSerializer):
+    id = serializers.CharField(read_only=True)
+
     class Meta:
         model = User
-        fields = ["email", "nombre", "tipo_usuario", "dni", "direccion", "telefono", "activo"]
+        fields = ["id", "email", "nombre", "tipo_usuario", "dni", "direccion", "telefono", "activo"]
+
+
+# Mascotas
+class MascotasModelSerializer(serializers.ModelSerializer):
+    user_id = serializers.PrimaryKeyRelatedField(
+        write_only=True,
+        queryset=User.objects.filter(tipo_usuario=User.CLIENTE),
+        error_messages={"does_not_exist": "Este usuario no es cliente."},
+    )
+
+    class Meta:
+        model = Mascota
+        fields = ["nombre", "especie", "edad", "raza", "sexo", "color", "alergias", "user_id"]
+
+    def create(self, data):
+        duenio = data.pop("user_id")
+        return Mascota.objects.create(**data, duenio=duenio)
+
+
+# Clientes
+class ClienteModelSerializer(serializers.ModelSerializer):
+    password = serializers.CharField(write_only=True)
+    mascotas = MascotasModelSerializer(read_only=True, many=True)
+
+    class Meta:
+        model = User
+        fields = ["id", "email", "nombre", "tipo_usuario", "dni", "direccion", "telefono", "password", "mascotas"]
+        read_only_fields = ["id", "tipo_usuario"]
+
+    def create(self, data):
+        username = str(data.get("nombre").replace(" ", "-"))
+        return User.objects.create_user(**data, username=username, tipo_usuario=User.CLIENTE)
 
 
 #  Producto
@@ -89,36 +122,3 @@ class ProductoModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = Producto
         fields = ["nombre", "precio", "stock", "imagen_principal", "marca", "imagenes"]
-
-
-# Medico
-class CrearClienteSerializer(serializers.Serializer):
-    nombre = serializers.CharField(min_length=5)
-    email = serializers.EmailField(validators=[UniqueValidator(queryset=User.objects.all())])
-    password = serializers.CharField(min_length=7)
-    dni = serializers.CharField(min_length=8)
-    direccion = serializers.CharField(required=False)
-    telefono = serializers.CharField(min_length=9, max_length=12)
-
-    def create(self, data):
-        nombre = data.get("nombre")
-        data = {
-            "nombre": nombre,
-            "email": data.get("email"),
-            "username": nombre.replace(" ", "-"),
-            "password": data.get("password"),
-            "dni": data.get("dni"),
-            "direccion": data.get("direccion", ""),
-            "telefono": data.get("telefono"),
-            "tipo_usuario": User.CLIENTE,
-        }
-        user = User.objects.create_user(**data, activo=True)
-        return user
-
-
-class MascotaSerializer(serializers.ModelSerializer):
-    duenio = serializers.EmailField(validators=[UniqueValidator(queryset=User.objects.all())])
-
-    class Meta:
-        model = Mascota
-        fields = ["duenio", "nombre", "edad", "descripcion", "especie", "raza"]

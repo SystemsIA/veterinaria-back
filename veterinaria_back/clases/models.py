@@ -18,7 +18,6 @@ class MarcaProducto(TimeStampedModel):
     class Meta:
         verbose_name = "marca"
         verbose_name_plural = "Marcas"
-        get_latest_by = "created"
         ordering = ["created", "modified"]
 
 
@@ -35,7 +34,6 @@ class Producto(TimeStampedModel):
     class Meta:
         verbose_name = "producto"
         verbose_name_plural = "03. Productos"
-        get_latest_by = "created"
         ordering = ["created", "modified"]
 
 
@@ -47,7 +45,6 @@ class ImagenProducto(TimeStampedModel):
         return str(self.producto.nombre)
 
     class Meta:
-        get_latest_by = "created"
         ordering = ["created", "modified"]
 
 
@@ -76,7 +73,6 @@ class Especie(TimeStampedModel):
     class Meta:
         verbose_name = "especie"
         verbose_name_plural = "Especies"
-        get_latest_by = "created"
         ordering = ["created", "modified"]
 
 
@@ -107,7 +103,6 @@ class Mascota(TimeStampedModel):
     class Meta:
         verbose_name = "mascota"
         verbose_name_plural = "01. Mascotas"
-        get_latest_by = "-created"
         ordering = ["-created", "-modified"]
 
 
@@ -145,7 +140,6 @@ class Historial(TimeStampedModel):
     class Meta:
         verbose_name = "historial"
         verbose_name_plural = "04. Historiales"
-        get_latest_by = "created"
         ordering = ["created", "modified"]
 
 
@@ -158,7 +152,6 @@ class Estado(TimeStampedModel):
         return str(self.nombre)
 
     class Meta:
-        get_latest_by = "created"
         ordering = ["created", "modified"]
 
 
@@ -175,5 +168,4 @@ class Cita(TimeStampedModel):
     class Meta:
         verbose_name = "cita"
         verbose_name_plural = "02. Citas"
-        get_latest_by = "fecha_cita"
         ordering = ["fecha_cita", "created", "modified"]

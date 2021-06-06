@@ -40,7 +40,6 @@ class User(AbstractUser, TimeStampedModel):
     class Meta:
         verbose_name = "usuario"
         verbose_name_plural = "usuarios"
-        get_latest_by = "created"
         ordering = ["-created", "-modified"]
 
 
@@ -55,5 +54,4 @@ class Notificacion(TimeStampedModel):
     class Meta:
         verbose_name = "notificaion"
         verbose_name_plural = "Notificaciones"
-        get_latest_by = "created"
         ordering = ["created", "modified"]
