@@ -18,7 +18,7 @@ jobs:
           python3 manage.py collectstatic --noinput
           python3 manage.py migrate --noinput
           sudo systemctl restart gunicorn nginx
-        host: api.rrqq.me
+        host: gaa.rrqq.me
         user: ubuntu
         key: ${{ secrets.SSH_PRIVATE_KEY}}
         
