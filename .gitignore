@@ -156,6 +156,10 @@ typings/
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+*.code-workspace
+
+# Local History for Visual Studio Code
+.history/
 
 
 
@@ -265,9 +269,10 @@ Session.vim
 tags
 
 ### Project template
-veterinaria_back/media/
+veterinaria_api/media/
 
 .pytest_cache/
-
-
-*.sqlite3
+.ipython/
+.env
+.envs/*
+!.envs/.local/

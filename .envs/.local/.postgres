@@ -1,0 +1,7 @@
+# PostgreSQL
+# ------------------------------------------------------------------------------
+POSTGRES_HOST=postgres
+POSTGRES_PORT=5432
+POSTGRES_DB=veterinaria_api
+POSTGRES_USER=UPnxUyYfjseSjqvIlWHzWEcPNKNBWHWN
+POSTGRES_PASSWORD=smxuIrMIYe7rEjNnKD51ImbkdxXEc9ic0JW8hIsZyCzSCW84mmEqy3qOsr4Sw8Iz

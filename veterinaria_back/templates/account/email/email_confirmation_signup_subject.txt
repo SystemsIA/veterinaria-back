@@ -1,4 +1,0 @@
-
-{% autoescape off %}
-Hola, {{ user.username }}. Estás recibiendo este mensaje para confirmar tu e-mail de DemoDjango.
-{% endautoescape %}
