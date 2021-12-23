@@ -8,14 +8,14 @@ jobs:
     name: deploy
     runs-on: ubuntu-latest
     steps:
-    - name: connect via ssh
-      uses: fifsky/ssh-action@master
-      with:
-        command: |
-          cd /home/ubuntu/veterinaria-back
-          git pull origin master
-          docker-compose -f production.yml up --build -d
-          docker-compose -f production.yml run --rm django python manage.py migrate
-        host: veterinaria.rrqq.me
-        user: ubuntu
-        key: ${{ secrets.SSH_PRIVATE_KEY}}
+      - name: connect via ssh
+        uses: fifsky/ssh-action@master
+        with:
+          command: |
+            cd /home/ubuntu/veterinaria-back
+            git pull origin master
+            docker-compose -f production.yml up --build -d
+            docker-compose -f production.yml run --rm django python manage.py migrate
+          host: veterinaria.rrqq.me
+          user: ubuntu
+          key: ${{ secrets.SSH_PRIVATE_KEY}}
