@@ -194,7 +194,15 @@ class ProductoModelSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Producto
-        fields = ["nombre", "precio", "stock", "imagen_principal", "marca", "imagenes"]
+        fields = [
+            "id",
+            "nombre",
+            "precio",
+            "stock",
+            "imagen_principal",
+            "marca",
+            "imagenes",
+        ]
 
 
 # Historial
